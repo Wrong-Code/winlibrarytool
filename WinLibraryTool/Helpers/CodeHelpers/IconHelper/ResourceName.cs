@@ -73,7 +73,7 @@ namespace WinLibraryTool.Helpers.CodeHelpers.IconHelper
 		/// </remarks>
 		public ResourceName(IntPtr lpName)
 		{
-			if (((uint)lpName >> 16) == 0)  //Integer resource
+			if (((ulong) lpName.ToInt64() >> 16) == 0)  //Integer resource
 			{
 				this.Id = lpName.ToInt32();
 				this.Name = null;
