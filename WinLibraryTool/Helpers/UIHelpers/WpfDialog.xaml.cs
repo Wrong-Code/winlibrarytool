@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Microsoft.WindowsAPICodePack.Shell;
+using Dark.Net;
+using WinLibraryTool.Helpers;
 
 // todo: fix namespace
 namespace WinLibraryTool
@@ -87,6 +80,7 @@ namespace WinLibraryTool
 		public WpfDialog(string title, string description, WpfDialogOptions options)
 		{
 			InitializeComponent();
+			DarkNet.Instance.SetWindowThemeWpf(this, App.Theme);
 
 			DialogTitle = title;
 			Description = description;
@@ -112,8 +106,9 @@ namespace WinLibraryTool
 					{
 						Button btnResponse = new Button();
 						btnResponse.Content = responses.ResponseNames[responseNum];
-						btnResponse.Height = 23;
-						btnResponse.MinWidth = 70;
+						//						btnResponse.MinHeight = 23;
+						btnResponse.Margin = new Thickness(0);
+						btnResponse.MinWidth = 90;
 						btnResponse.Click += new RoutedEventHandler(btnResponse_Click);
 
 						if (responseNum == responses.DefaultResponseIndex)
@@ -124,7 +119,7 @@ namespace WinLibraryTool
 						// Only set the margin on the 
 						if (responseNum != responses.ResponseNames.Length)
 						{
-							btnResponse.Margin = new Thickness(0, 0, 5, 0);
+							btnResponse.Margin = new Thickness(0, 0, 8, 0);
 						}
 
 						buttonPanel.Children.Add(btnResponse);
@@ -142,27 +137,27 @@ namespace WinLibraryTool
 				}
 				else
 				{
-					StockIcons icons = new StockIcons();
-					StockIcon icon = icons.Info;
-
-					if (options.DialogType == DialogType.Question)
-					{
-						icon = icons.Help;
-					}
-					else if (options.DialogType == DialogType.Error)
-					{
-						icon = icons.Error;
-					}
-					else if (options.DialogType == DialogType.Warning)
-					{
-						icon = icons.Warning;
-					}
-
 					// This is an example of how to load a bitmap using a pack formatted string.
 					//resourceImage = @"Helpers\UIHelpers\Images\question.png";
 					//BitmapImage bitmapImage = new BitmapImage(new Uri(String.Format("pack://application:,,,/{0}", resourceImage)));
 
-					iconImage.Source = icon.BitmapSource;
+					//iconImage.Source = icon.BitmapSource;
+
+					switch (options.DialogType) {
+						case DialogType.Question:
+							iconImage.Source = SystemIcons.Question;
+							break;
+						case DialogType.Error:
+							iconImage.Source = SystemIcons.Error;
+							break;
+						case DialogType.Warning:
+							iconImage.Source = SystemIcons.Warning;
+							break;
+						case DialogType.Information:
+						default:
+							iconImage.Source = SystemIcons.Info;
+							break;
+					}
 				}
 			}
 

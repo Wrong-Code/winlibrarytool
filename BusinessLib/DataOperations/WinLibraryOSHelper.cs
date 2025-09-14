@@ -2,11 +2,9 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.WindowsAPICodePack.Shell;
 using BusinessLib.DataModel;
 using BusinessLib.DataAccess;
-using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 using System.Xml.Linq;
 
 namespace BusinessLib.DataOperations
@@ -56,14 +54,14 @@ namespace BusinessLib.DataOperations
 				}
 			}
 
-            try
-            {
-                winLibrary.IconReference = shellLibrary.IconResourceId;
-            }
-            catch
-            {
-                winLibrary.IconReference = new IconReference(WinLibrary.DefaultIconReference);
-            }
+			try
+			{
+				winLibrary.IconReference = shellLibrary.IconResourceId;
+			}
+			catch
+			{
+				winLibrary.IconReference = new IconReference(WinLibrary.DefaultIconReference);
+			}
 
 			try
 			{
@@ -75,7 +73,6 @@ namespace BusinessLib.DataOperations
 				// Hopefully this will be fixed by MS in the future.
 				// Just pick the first folder as the default save folder (this is how
 				// libraries work in Windows).
-
 				winLibrary.LibraryType = LibraryFolderType.Generic;
 			}
 
@@ -91,7 +88,8 @@ namespace BusinessLib.DataOperations
 		{
 			return Path.Combine(
 				Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-				ShellLibrary.LibrariesKnownFolder.RelativePath);
+				ShellLibrary.LibrariesKnownFolder.RelativePath
+			);
 		}
 
 		private static void DeleteLibrary(string name)
@@ -104,7 +102,7 @@ namespace BusinessLib.DataOperations
 
 		private static void BackupAllLibraries()
 		{
-			_backupPath = Path.Combine(Path.GetTempPath(), "Win7LibraryToolBackup");
+			_backupPath = Path.Combine(Path.GetTempPath(), "WinLibraryToolBackup");
 
 			if (Directory.Exists(_backupPath))
 			{
@@ -145,11 +143,11 @@ namespace BusinessLib.DataOperations
 
 			if (createSystemRootMirror)
 			{
-			    string mirrorRoot = Path.Combine(Environment.SystemDirectory.Substring(0, 3), "libraries");
-
-			    // remove any existing mirror
-			    if (Directory.Exists(mirrorRoot))
-			    {
+        string mirrorRoot = Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Libraries");
+        
+				// remove any existing mirror
+				if (Directory.Exists(mirrorRoot))
+				{
 					// From MSDN / Directory.Delete:
 					//
 					// The behavior of this method differs slightly when deleting a directory that contains a 
@@ -159,12 +157,12 @@ namespace BusinessLib.DataOperations
 					// reparse point is deleted and not the target of the symbolic link.
 
 					Directory.Delete(mirrorRoot, true);	// This must not delete any user data!
-			    }
+				}
 
-			    Directory.CreateDirectory(mirrorRoot);
+				Directory.CreateDirectory(mirrorRoot);
 
-			    foreach (WinLibrary library in WinLibrarySetStorage.Libraries)
-			    {
+				foreach (WinLibrary library in WinLibrarySetStorage.Libraries)
+				{
 					string libraryPath = Path.Combine(mirrorRoot, library.Name);
 					Directory.CreateDirectory(libraryPath);
 
@@ -176,7 +174,7 @@ namespace BusinessLib.DataOperations
 
 						NativeMethods.CreateSymbolicLink(folderSource, folderTarget, NativeMethods.SYMLINK_FLAG_DIRECTORY);
 					}
-			    }
+				}
 			}
 
 			foreach (WinLibrary library in WinLibrarySetStorage.Libraries)
@@ -233,11 +231,11 @@ namespace BusinessLib.DataOperations
 				// Library is now created in OS.
 			}
 
-            // Note: This is a temporary *hack* whilst I wait for feedback for how to set
-            // properties on the library.  See this thread:
-            // http://code.msdn.microsoft.com/WindowsAPICodePack/Thread/View.aspx?ThreadId=2998
+			// Note: This is a temporary *hack* whilst I wait for feedback for how to set
+			// properties on the library.  See this thread:
+			// http://code.msdn.microsoft.com/WindowsAPICodePack/Thread/View.aspx?ThreadId=2998
 
-            string libraryFilePath = Path.Combine(GetLibrariesStoragePath(), library.Name + ".library-ms");
+			string libraryFilePath = Path.Combine(GetLibrariesStoragePath(), library.Name + ".library-ms");
 
 			var doc = XDocument.Load(libraryFilePath);
 

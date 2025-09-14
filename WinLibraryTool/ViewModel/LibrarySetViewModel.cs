@@ -13,13 +13,13 @@ using Microsoft.WindowsAPICodePack.Shell;
 
 namespace WinLibraryTool.ViewModel
 {
-    /// <summary>
+		/// <summary>
 	/// The ViewModel for WinLibraryTool.  This simply
 	/// exposes a read-only collection of WinLibraries.
-    /// </summary>
-    public class LibrarySetViewModel
-    {
-        #region Data
+		/// </summary>
+		public class LibrarySetViewModel
+		{
+		#region Data
 
 		readonly ObservableCollection<LibraryViewModel> _libraries;
 		private LibraryViewModel _currentLibrary = null;
@@ -33,12 +33,12 @@ namespace WinLibraryTool.ViewModel
 		readonly ICommand _applyChangesCommand;
 		readonly ICommand _helpCommand;
 
-        #endregion // Data
+		#endregion // Data
 
-        #region Constructor
+		#region Constructor
 
 		public LibrarySetViewModel(WinLibrary[] libraries, Window userInterface)
-        {
+		{
 			_userInterface = userInterface;
 
 			_libraries = new ObservableCollection<LibraryViewModel>(
@@ -56,7 +56,7 @@ namespace WinLibraryTool.ViewModel
 			_helpCommand = new Commands.HelpCommand();
 		}
 
-        #endregion // Constructor
+		#endregion // Constructor
 
 		#region Properties
 
@@ -173,6 +173,7 @@ namespace WinLibraryTool.ViewModel
 		public void LoadExisting()
 		{
 			_libraries.Clear();
+			WinLibrarySetStorage.Libraries.Clear();
 			WinLibraryOSHelper.EnumerateLibraries();
 			AddLibraries();
 		}
@@ -186,9 +187,14 @@ namespace WinLibraryTool.ViewModel
 				{
 					if (!File.Exists(iconPath))
 					{
-						var options = new WpfDialog.WpfDialogOptions();
-						options.DialogType = WpfDialog.DialogType.Error;
-						var dialog = new WpfDialog("Windows Library Tool", String.Format("The icon for library '{0}' cannot be found, reverting to default icon.  Path:\n\n{1}", library.Name, iconPath), options);
+						var options = new WpfDialog.WpfDialogOptions {
+							DialogType = WpfDialog.DialogType.Error
+						};
+						var dialog = new WpfDialog(
+							Helpers.AssemblyProperties.AssemblyTitle,
+							String.Format("The icon for library '{0}' cannot be found, reverting to default icon.  Path:\n\n{1}", library.Name, iconPath),
+							options
+						);
 						dialog.ShowDialog();
 						library.IconReference = new IconReference(WinLibrary.DefaultIconReference);
 					}

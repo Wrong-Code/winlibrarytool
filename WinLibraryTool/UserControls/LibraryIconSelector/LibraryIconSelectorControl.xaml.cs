@@ -1,24 +1,17 @@
-﻿using System;
-using System.IO;
+﻿using BusinessLib.DataModel;
+using Microsoft.WindowsAPICodePack.Shell;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WinLibraryTool.ViewModel;
-using Microsoft.WindowsAPICodePack.Shell;
 using WinLibraryTool.Helpers.CodeHelpers.IconHelper;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Windows.Interop;
-using BusinessLib.DataModel;
+using WinLibraryTool.ViewModel;
+using static WinLibraryTool.WpfDialog;
 
 namespace WinLibraryTool.UserControls
 {
@@ -57,16 +50,14 @@ namespace WinLibraryTool.UserControls
 			_currentIconReference = _viewModel.IconReference;
 			_browseCommand = new Commands.BrowseCommand(this);
 			_availableIcons = new ObservableCollection<AvailableIcon>();
-			_defaultIconPath = String.Format(@"{0}windows\system32\imageres.dll", Environment.SystemDirectory.Substring(0, 3).ToLowerInvariant());
-
-			tipText.Inlines.Add("Tip: Try browsing ");
+			_defaultIconPath = Path.Combine(Environment.GetEnvironmentVariable("SystemRoot"), "System32\\imageres.dll");
 
 			Run linkText = new Run(_defaultIconPath);
 			Hyperlink link = new Hyperlink(linkText);
 			//link.NavigateUri = new Uri(webAddress.Text);
 			link.Click +=new RoutedEventHandler(link_Click);
+			tipText.Inlines.Add("Tip: Try browsing ");
 			tipText.Inlines.Add(link);
-			tipText.Inlines.Add(".");
 
 			AddDefaultIcons();
 
@@ -119,17 +110,20 @@ namespace WinLibraryTool.UserControls
 			int iconCount = IconHelper.GetIconCount(filePath);
 			if (iconCount == 0)
 			{
-				WpfDialog.WpfDialogOptions errorOptions = new WpfDialog.WpfDialogOptions();
-				errorOptions.DialogType = WpfDialog.DialogType.Error;
-				errorOptions.TitleBarIcon = _userInterface.Icon;
+				WpfDialog.WpfDialogOptions errorOptions = new WpfDialog.WpfDialogOptions
+				{
+					DialogType = WpfDialog.DialogType.Error,
+					TitleBarIcon = _userInterface.Icon
+				};
 
-				WpfDialog errorDialog = new WpfDialog(
-					Helpers.AssemblyProperties.AssemblyTitle, 
+				WpfDialog dialog = new WpfDialog(
+					Helpers.AssemblyProperties.AssemblyTitle,
 					String.Format("No icons were found in '{0}'.", System.IO.Path.GetFileName(filePath)),
-					errorOptions);
-
-				errorDialog.Owner = _userInterface;
-				errorDialog.ShowDialog();
+					errorOptions
+				) {
+					Owner = _userInterface
+				};
+				dialog.ShowDialog();
 			}
 			else
 			{
@@ -156,22 +150,23 @@ namespace WinLibraryTool.UserControls
 					}
 				}
 
+				Mouse.OverrideCursor = null;
 				if (errorCount > 0)
 				{
-					WpfDialog.WpfDialogOptions errorOptions = new WpfDialog.WpfDialogOptions();
-					errorOptions.DialogType = WpfDialog.DialogType.Error;
-					errorOptions.TitleBarIcon = _userInterface.Icon;
-
-					WpfDialog errorDialog = new WpfDialog(
+					WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions
+					{
+						DialogType = WpfDialog.DialogType.Warning,
+						TitleBarIcon = _userInterface.Icon
+					};
+					WpfDialog dialog = new WpfDialog(
 						Helpers.AssemblyProperties.AssemblyTitle,
 						String.Format("{0} icon(s) were not added from '{1}', possibly because no 32x32 size was found.", errorCount, System.IO.Path.GetFileName(filePath)),
-						errorOptions);
-
-					errorDialog.Owner = _userInterface;
-					errorDialog.ShowDialog();
+						options
+					) {
+						Owner = _userInterface
+					};
+					dialog.ShowDialog();
 				}
-
-				Mouse.OverrideCursor = Cursors.Arrow;
 			}
 		}
 

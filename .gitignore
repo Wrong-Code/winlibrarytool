@@ -1,4 +1,11 @@
-bin
+# Build output
+bin/
+obj/
+
+# Visual Studio folder
+.vs/
+
+# User-specific filesbin
 obj
 *.pdb
 *.cache

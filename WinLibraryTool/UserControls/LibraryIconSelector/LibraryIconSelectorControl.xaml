@@ -1,30 +1,71 @@
-﻿<UserControl x:Class="WinLibraryTool.UserControls.LibraryIconSelectorControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:converters="clr-namespace:WinLibraryTool.Converters"
-	xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+﻿<UserControl
+  x:Class="WinLibraryTool.UserControls.LibraryIconSelectorControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:converters="clr-namespace:WinLibraryTool.Converters"
+  xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+
+  Background="{DynamicResource App.Background}"
+>
+
+  <StackPanel
+    Margin="2"
+    Background="Transparent"
+  >
+
+    <!-- Icon ListView -->
+    <ListView
+      Name="iconList"
+      Foreground="{DynamicResource App.Foreground}"
+      Background="{DynamicResource App.ControlBackground}"
+      BorderBrush="{DynamicResource Control.Border}"
+      BorderThickness="{DynamicResource Control.BorderThickness}"
+      Width="444"
+      Height="200"
+      Margin="0,0,0,10"
+      FontSize="{DynamicResource App.FontSize}"
+      FontFamily="{DynamicResource App.FontFamily}"
+      ItemsSource="{Binding Path=AvailableIcons}"
+      SelectionChanged="iconList_SelectionChanged"
     >
-	<StackPanel>
-		<ListView Name="iconList" Width="444" Height="150" Margin="0,0,0,10" ItemsSource="{Binding Path=AvailableIcons}" SelectionChanged="iconList_SelectionChanged">
-			<ListView.ItemsPanel>
-				<ItemsPanelTemplate>
-					<WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
-					/>
-				</ItemsPanelTemplate>
-			</ListView.ItemsPanel>
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<Image Source="{Binding Path=IconImage}" Margin="10" Width="32" Height="32" />
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
-		<Grid DockPanel.Dock="Bottom">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition></ColumnDefinition>
-				<ColumnDefinition></ColumnDefinition>
-			</Grid.ColumnDefinitions>
-			<TextBlock Name="tipText" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-			<Button Grid.Column="1" Command="{Binding BrowseCommand}" Height="23" Width="70" HorizontalAlignment="Right">Browse...</Button>
-		</Grid>
-	</StackPanel>
+
+      <!-- Use WrapPanel inside ListView for icon layout -->
+      <ListView.ItemsPanel>
+        <ItemsPanelTemplate>
+          <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}" />
+        </ItemsPanelTemplate>
+      </ListView.ItemsPanel>
+
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <Image Source="{Binding Path=IconImage}" Margin="10" Width="32" Height="32" />
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+
+    <!-- Footer with Tip and Browse Button -->
+    <Grid DockPanel.Dock="Bottom">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <TextBlock
+        Name="tipText"
+        Grid.Column="0"
+        HorizontalAlignment="Left"
+      />
+
+      <Button
+        Grid.Column="1"
+        MinWidth="90"
+        Height="28"
+        Content="Browse..."
+        Padding="8,2"
+        Margin="10,0,0,0"
+        Command="{Binding BrowseCommand}"
+      />
+    </Grid>
+
+  </StackPanel>
 </UserControl>

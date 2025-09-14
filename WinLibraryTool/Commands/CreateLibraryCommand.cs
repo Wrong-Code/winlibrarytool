@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
-using WinLibraryTool.ViewModel;
-using WinLibraryTool.UserControls;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Input;
+using WinLibraryTool.UserControls;
+using WinLibraryTool.ViewModel;
 
 namespace WinLibraryTool.Commands
 {
@@ -25,17 +21,24 @@ namespace WinLibraryTool.Commands
 		{
 			bool created = false;
 			bool cancelled = false;
+			string windowTitle = String.Format("{0}  |  Add library", Helpers.AssemblyProperties.AssemblyTitle);
 			while (!cancelled && !created)
 			{
-				UserInputControl userControl = new UserInputControl("Library name:", "");
-				WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions();
-				options.DialogType = WpfDialog.DialogType.Question;
-				options.PossibleResponses = new WpfDialog.UserResponses(new string[] { "Create", "Cancel" }, 0);
-				options.CustomContent = userControl;
-				options.TitleBarIcon = ((Window)parameter).Icon;
-
-				WpfDialog dialog = new WpfDialog(Helpers.AssemblyProperties.AssemblyTitle, "Enter the name of the new library.", options);
-				dialog.Owner = (Window)parameter;
+				UserInputControl userControl = new UserInputControl("Name:", "");
+				WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions
+				{
+					DialogType = WpfDialog.DialogType.Question,
+					PossibleResponses = new WpfDialog.UserResponses(new string[] { "Create", "Cancel" }, 0),
+					CustomContent = userControl,
+					TitleBarIcon = ((Window) parameter).Icon
+				};
+				WpfDialog dialog = new WpfDialog(
+					windowTitle,
+					"Enter the name of the new library.",
+					options
+				) {
+					Owner = (Window) parameter
+				};
 				dialog.ShowDialog();
 
 				if (dialog.UserResponse.Equals("Create", StringComparison.CurrentCultureIgnoreCase))
@@ -47,11 +50,16 @@ namespace WinLibraryTool.Commands
 					}
 					else
 					{
-						WpfDialog.WpfDialogOptions errorOptions = new WpfDialog.WpfDialogOptions();
-						errorOptions.DialogType = WpfDialog.DialogType.Error;
-						errorOptions.TitleBarIcon = ((Window)parameter).Icon;
-
-						WpfDialog errorDialog = new WpfDialog(Helpers.AssemblyProperties.AssemblyTitle, "You must enter a name for the new library.", errorOptions);
+						WpfDialog.WpfDialogOptions errorOptions = new WpfDialog.WpfDialogOptions
+						{
+							DialogType = WpfDialog.DialogType.Error,
+							TitleBarIcon = ((Window) parameter).Icon
+						};
+						WpfDialog errorDialog = new WpfDialog(
+							windowTitle,
+							"You must enter a name for the new library.",
+							errorOptions
+						);
 						errorDialog.Owner = (Window)parameter;
 						errorDialog.ShowDialog();
 					}

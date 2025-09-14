@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- ======== Dark Theme ======== -->
+
+  <Color x:Key="Color.Foreground">#FFF3F3F3</Color>
+  <Color x:Key="Color.Background">#FF202020</Color>
+
+  <Color x:Key="Color.Control.Background">#FF2D2D30</Color>
+  <Color x:Key="Color.Control.Border">#FF3F3F46</Color>
+  <Color x:Key="Color.Control.DisabledForeground">#80000000</Color>
+  <Color x:Key="Color.Control.Hover">#FF313135</Color>
+  <Color x:Key="Color.Control.Pressed">#FF2A2A2D</Color>
+
+  <!-- ======== Resources ======== -->
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="pack://application:,,,/WinLibraryTool;component/Resources/Skin.Common.xaml" />
+    <ResourceDictionary Source="pack://application:,,,/WinLibraryTool;component/Resources/Icons.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

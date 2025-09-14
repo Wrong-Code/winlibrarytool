@@ -24,15 +24,22 @@ namespace WinLibraryTool.Commands
 
 		public void Execute(object parameter)
 		{
-			WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions();
-			options.DialogType = WpfDialog.DialogType.Information;
-			options.PossibleResponses = new WpfDialog.UserResponses(new string[] { "OK", "Cancel" }, 1);
-			options.TitleBarIcon = ((Window)parameter).Icon;
+			WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions
+			{
+				DialogType = WpfDialog.DialogType.Information,
+				PossibleResponses = new WpfDialog.UserResponses(new string[] { "OK", "Cancel" }, 1),
+				TitleBarIcon = ((Window) parameter).Icon
+			};
 			LibraryIconSelectorControl selectorControl = new LibraryIconSelectorControl(_viewModel, (Window)parameter);
 			options.CustomContent = selectorControl;
 
-			WpfDialog dialog = new WpfDialog(Helpers.AssemblyProperties.AssemblyTitle, "Choose an icon for this library.", options);
-			dialog.Owner = (Window)parameter;
+			WpfDialog dialog = new WpfDialog(
+				Helpers.AssemblyProperties.AssemblyTitle,
+				"Choose an icon for this library.",
+				options
+			) {
+				Owner = (Window) parameter
+			};
 			dialog.ShowDialog();
 
 			if (dialog.UserResponse.Equals("OK", StringComparison.CurrentCultureIgnoreCase))

@@ -1,37 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using BusinessLib.DataModel;
-using System.Windows.Input;
-using System.Drawing;
+//using System.Linq;
 using System.Windows;
-using WinLibraryTool.Helpers.CodeHelpers.IconHelper;
+using System.Windows.Input;
 using Microsoft.WindowsAPICodePack.Shell;
+using BusinessLib.DataModel;
 
 namespace WinLibraryTool.ViewModel
 {
-    /// <summary>
-    /// A UI-friendly wrapper around a WinLibrary object.
-    /// </summary>
-    public class LibraryViewModel :  TreeViewItemViewModel
-    {
-		#region Data
+	/// <summary>
+	/// A UI-friendly wrapper around a WinLibrary object.
+	/// </summary>
+	public class LibraryViewModel :  TreeViewItemViewModel
+	{
 
+		#region Data
 		private readonly WinLibrary _winLibrary;
 		private readonly ICommand _setSaveCommand;
 		private readonly ICommand _removeCommand;
 		private readonly ICommand _includeFolderCommand;
 		private readonly ICommand _chooseIconCommand;
 		private readonly Window _userInterface = null;
-
 		#endregion // Data
 
-	   public LibraryViewModel(WinLibrary winLibrary, Window userInterface) 
-            : base(null, true)
-        {
+		public LibraryViewModel(WinLibrary winLibrary, Window userInterface) 
+			: base(null, true)
+		{
 			_winLibrary = winLibrary;
 			_userInterface = userInterface;
 
@@ -87,9 +81,9 @@ namespace WinLibraryTool.ViewModel
 		}
 
 		// todo: refactor out
-        public string Name
-        {
-            get { return _winLibrary.Name; }
+		public string Name
+		{
+			get { return _winLibrary.Name; }
 			set
 			{
 				if (value != _winLibrary.Name)
@@ -98,7 +92,7 @@ namespace WinLibraryTool.ViewModel
 					this.OnPropertyChanged("Name");
 				}
 			}
-        }
+		}
 
 		public IconReference IconReference
 		{
@@ -129,13 +123,13 @@ namespace WinLibraryTool.ViewModel
 
 		public bool CanSetSave() { return (this.CurrentFolder != null); }
 
-        protected override void LoadChildren()
-        {
-            foreach (string folder in _winLibrary.Folders)
-                base.Children.Add(new FolderViewModel(folder, this));
+		protected override void LoadChildren()
+		{
+			foreach (string folder in _winLibrary.Folders)
+				base.Children.Add(new FolderViewModel(folder, this));
 
 			SetSaveFolder(_winLibrary.SaveFolder);
-        }
+		}
 
 		public bool IncludeFolder(string path)
 		{
@@ -205,5 +199,6 @@ namespace WinLibraryTool.ViewModel
 
 			return null;
 		}
-    }
+
+	}
 }

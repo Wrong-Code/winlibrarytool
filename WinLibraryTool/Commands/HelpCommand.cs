@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Input;
-using WinLibraryTool.ViewModel;
-using WinLibraryTool.UserControls;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Documents;
-using System.Diagnostics;
 
 namespace WinLibraryTool.Commands
 {
@@ -23,12 +19,18 @@ namespace WinLibraryTool.Commands
 		public void Execute(object parameter)
 		{
 			TextBlock infoText = new TextBlock();
-			infoText.Inlines.Add("This tool provides the following features not available in Windows:\n\n" +
-			                        "      - Add network (UNC or mapped drive) and any other un-indexed folders to libraries.\n" +
-									"      - Backup library configuration, such that a saved set of libraries can be instantly\n" + 
-									"        restored at any point.\n" +
-									"      - Create a mirror of all libraries (using symbolic links) in [SystemDrive]:\\libraries.\n" +
-									"      - Change a library's icon.\n\n");
+			string mirrorRoot = Path.Combine(Environment.GetEnvironmentVariable("USERPROFILE"), "Libraries");
+			infoText.Inlines.Add(
+$@"This tool provides the following features not available in Windows:
+
+  • Add network (UNC or mapped drive) and any other un-indexed folders to libraries.
+  • Backup library configuration, such that a saved set of libraries can be instantly
+     restored at any point.
+  • Create a mirror of all libraries (using symbolic links) in {mirrorRoot}
+  • Change a library's icon.
+
+"
+			);
 
 			Run webAddress = new Run("http://zornsoftware.codenature.info");
 			Hyperlink link = new Hyperlink(webAddress);
@@ -36,12 +38,14 @@ namespace WinLibraryTool.Commands
 			link.Click += new RoutedEventHandler(link_Click);
 			infoText.Inlines.Add(link);
 
-			WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions();
-			options.DialogType = WpfDialog.DialogType.Information;
-			options.DialogIcon = ((Window)parameter).Icon;
-			options.PossibleResponses = new WpfDialog.UserResponses(new string[] { "OK" });
-			options.TitleBarIcon = ((Window)parameter).Icon;
-			options.CustomContent = infoText;
+			WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions
+			{
+				DialogType = WpfDialog.DialogType.Information,
+				DialogIcon = ((Window) parameter).Icon,
+				PossibleResponses = new WpfDialog.UserResponses(new string[] { "OK" }),
+				TitleBarIcon = ((Window) parameter).Icon,
+				CustomContent = infoText
+			};
 
 			WpfDialog dialog = new WpfDialog(
 				Helpers.AssemblyProperties.AssemblyTitle, 
@@ -49,8 +53,10 @@ namespace WinLibraryTool.Commands
 					Helpers.AssemblyProperties.AssemblyTitle, 
 					Helpers.AssemblyProperties.AssemblyVersion, 
 					Helpers.AssemblyProperties.AssemblyDescription, 
-					Helpers.AssemblyProperties.AssemblyCopyright), 
-				options);
+					Helpers.AssemblyProperties.AssemblyCopyright
+				), 
+				options
+			);
 
 			dialog.Owner = (Window)parameter;
 			dialog.ShowDialog();

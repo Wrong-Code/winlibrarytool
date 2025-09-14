@@ -24,7 +24,7 @@ namespace WinLibraryTool.Commands
 
 		public void Execute(object parameter)
 		{
-			CommonOpenFileDialog fd = new CommonOpenFileDialog("Select folder(s) to include:");
+			CommonOpenFileDialog fd = new CommonOpenFileDialog("Select folder(s) to add");
 			fd.IsFolderPicker = true; 
 			fd.Multiselect = true;
 
@@ -34,23 +34,27 @@ namespace WinLibraryTool.Commands
 			{
 				if (fd.ShowDialog() == CommonFileDialogResult.OK)
 				{
-
-                    foreach (var folderPath in fd.FileNames)
-                    {
-                        if (!_viewModel.IncludeFolder(folderPath))
-                        {
-                            WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions();
-                            options.DialogType = WpfDialog.DialogType.Error;
-                            options.TitleBarIcon = ((Window)parameter).Icon;
-
-                            WpfDialog dialog = new WpfDialog(Helpers.AssemblyProperties.AssemblyTitle, String.Format("The folder '{0}' already exists in this library.\n\nPlease choose another.", folderPath), options);
-                            dialog.Owner = (Window)parameter;
-                            dialog.ShowDialog();
-                            return;
-                        }
-                    }
-
-				    succeeded = true;
+					foreach (var folderPath in fd.FileNames)
+					{
+						if (! _viewModel.IncludeFolder(folderPath))
+						{
+							WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions
+							{
+								DialogType = WpfDialog.DialogType.Error,
+								TitleBarIcon = ((Window) parameter).Icon
+							};
+							WpfDialog dialog = new WpfDialog(
+								Helpers.AssemblyProperties.AssemblyTitle,
+								String.Format("The folder '{0}' already exists in this library.\n\nPlease choose another.", folderPath),
+								options
+							) {
+								Owner = (Window) parameter
+							};
+							dialog.ShowDialog();
+							return;
+						}
+					}
+					succeeded = true;
 				}
 				else
 				{

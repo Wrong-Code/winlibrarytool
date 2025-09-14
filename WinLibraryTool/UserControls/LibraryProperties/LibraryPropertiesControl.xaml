@@ -1,47 +1,193 @@
-﻿<UserControl x:Class="WinLibraryTool.UserControls.LibraryPropertiesControl"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:converters="clr-namespace:WinLibraryTool.Converters"
-	xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-	>
-    <StackPanel>
-        <StackPanel Orientation="Horizontal">
-		    <TextBlock VerticalAlignment="Center">
-			    Library name:
-		    </TextBlock>
-			<TextBox Margin="8,0,0,0" Width="160" Text="{Binding Path=Name, Mode=TwoWay}"></TextBox>
-        </StackPanel>
-		<StackPanel Orientation="Horizontal">
-			<TextBlock VerticalAlignment="Center">
-			    Library icon:
-			</TextBlock>
-			<Image MinWidth="32" MinHeight="32" Margin="15" Source="{Binding Path=IconReference, Converter={converters:IconReferenceToBitmap}}"></Image>
-			<Button Command="{Binding ChooseIconCommand}" CommandParameter="{Binding UserInterface}" MinWidth="90" Height="23">Choose icon...</Button>
-		</StackPanel>
-		<StackPanel Orientation="Horizontal">
-			<TextBlock VerticalAlignment="Center">
-			    Library type:
-			</TextBlock>
-			<ComboBox Margin="15,0,0,5" MinWidth="137" ItemsSource="{Binding LibraryTypes}" DisplayMemberPath="Value" SelectedValuePath="Key" SelectedValue="{Binding LibraryType}"></ComboBox>
-		</StackPanel>
-		<TextBlock Margin="0,0,0,0" VerticalAlignment="Center">
-			    Library folders:
-		</TextBlock>
-		<ListBox Margin="0,10,0,10" Height="100" Name="folderListBox" SelectionChanged="folderListBox_SelectionChanged">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<StackPanel Orientation="Horizontal" MaxWidth="{Binding ElementName=folderListBox, Path=ActualWidth}">
-						<Image Source="../../Images/folder-tick.png" Visibility="{Binding Path=IsSaveLocation, Converter={converters:BoolToVisibility}}" />
-						<Image Source="../../Images/folder.png" Margin="2,0,5,0"/>
-						<TextBlock VerticalAlignment="Center" Text="{Binding FolderName}" TextWrapping="NoWrap" />
-					</StackPanel>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-			<Button Command="{Binding SetSaveCommand}" Margin="0,0,10,0" MinWidth="110">_Set save location</Button>
-			<Button Command="{Binding IncludeFolderCommand}" CommandParameter="{Binding UserInterface}" Margin="0,0,10,0" MinWidth="110">_Include folder(s)...</Button>
-			<Button Command="{Binding RemoveCommand}" MinWidth="70">_Remove</Button>
-		</StackPanel>
-	</StackPanel>
+﻿<UserControl
+  x:Class="WinLibraryTool.UserControls.LibraryPropertiesControl"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:converters="clr-namespace:WinLibraryTool.Converters"
+  xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+
+  Background="{DynamicResource App.Background}"
+>
+
+  <StackPanel
+    Margin="0"
+    VerticalAlignment="Center"
+  >
+    <Grid
+      Width="250"
+      Margin="0,0,0,4"
+      HorizontalAlignment="Left"
+      Grid.IsSharedSizeScope="True"
+    >
+      <Grid.ColumnDefinitions>
+        <!-- Shared label width -->
+        <ColumnDefinition SharedSizeGroup="LabelColumn" Width="60"/>
+        <!-- Input fields stretch -->
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <!-- Library name -->
+      <TextBlock
+        Grid.Row="0"
+        Grid.Column="0"
+        Margin="0,0,0,12"
+        Text="Name:"
+      />
+      <TextBox
+        Grid.Row="0"
+        Grid.Column="1"
+        MinWidth="160"
+        Margin="0,0,0,12"
+        Text="{Binding Path=Name, Mode=TwoWay}"
+      />
+
+      <!-- Library icon -->
+      <TextBlock
+        Grid.Row="1"
+        Grid.Column="0"
+        Margin="0,0,0,12"
+        Text="Icon:"
+      />
+      <Grid
+        Grid.Row="1"
+        Grid.Column="1"
+        Margin="0,0,0,12"
+      >
+        <Grid.ColumnDefinitions>
+          <!-- Icon -->
+          <ColumnDefinition Width="36"/>
+          <!-- TextBox -->
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Image
+          Grid.Column="0"
+          MinWidth="24"
+          MinHeight="24"
+          Margin="0,0,12,0"
+          Source="{Binding Path=IconReference, Converter={converters:IconReferenceToBitmap}}"
+        />
+        <Button
+          Grid.Column="1"
+          MinWidth="100"
+          Margin="0"
+          Command="{Binding ChooseIconCommand}"
+          CommandParameter="{Binding UserInterface}"
+          Content="Choose icon..."
+        />
+      </Grid>
+
+      <!-- Library type -->
+      <TextBlock
+        Grid.Row="2"
+        Grid.Column="0"
+        Margin="0,0,0,12"
+        Text="Type:"
+      />
+      <ComboBox
+        Grid.Row="2"
+        Grid.Column="1"
+        Margin="0,0,0,12"
+        MinWidth="160"
+        DisplayMemberPath="Value"
+        SelectedValuePath="Key"
+        ItemsSource="{Binding LibraryTypes}"
+        SelectedValue="{Binding LibraryType}"
+      />
+    </Grid>
+
+    <!-- Library Folders Header -->
+    <TextBlock
+      Margin="0,0,0,8"
+      Text="Folders:"
+    />
+    <ListBox
+      Name="folderListBox"
+      MinWidth="450"
+      Height="140"
+      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+      ScrollViewer.VerticalScrollBarVisibility="Auto"
+      SelectionChanged="folderListBox_SelectionChanged"
+    >
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel
+            Orientation="Horizontal"
+            Margin="0,2,0,2"
+            MaxWidth="{Binding ElementName=folderListBox, Path=ActualWidth}"
+          >
+            <Image
+              Width="16"
+              Height="16"
+              Margin="0,0,3,0"
+              VerticalAlignment="Center"
+              Source="{StaticResource Icon.Check}"
+              Visibility="{Binding Path=IsSaveLocation, Converter={converters:BoolToVisibility}}"
+            />
+            <Image
+              Width="16"
+              Height="16"
+              Margin="3,0,0,0"
+              VerticalAlignment="Center"
+              Source="{StaticResource Icon.Folder}"
+            />
+            <TextBlock
+              Margin="6,0,10,0" 
+              TextWrapping="NoWrap"
+              Text="{Binding FolderName}"
+            />
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <!-- Folder Buttons -->
+    <StackPanel
+      Orientation="Horizontal"
+      HorizontalAlignment="Left"
+      Margin="0"
+    >
+      <Button
+        Style="{StaticResource IconButton}"
+        Command="{Binding IncludeFolderCommand}"
+        ToolTip="Add folder(s)"
+      >
+        <Image
+          Width="16"
+          Height="16"
+          VerticalAlignment="Center"
+          Source="{StaticResource Icon.Add}"
+        />
+      </Button>
+      <Button
+        Style="{StaticResource IconButton}"
+        Command="{Binding RemoveCommand}"
+        ToolTip="Remove folder"
+      >
+        <Image
+          Width="16"
+          Height="16"
+          VerticalAlignment="Center"
+          Source="{StaticResource Icon.Delete}"
+        />
+      </Button>
+      <Button
+        Style="{StaticResource IconButton}"
+        Command="{Binding SetSaveCommand}"
+        ToolTip="Set save location"
+      >
+        <Image
+          Width="16"
+          Height="16"
+          VerticalAlignment="Center"
+          Source="{StaticResource Icon.Select}"
+        />
+      </Button>
+    </StackPanel>
+  </StackPanel>
 </UserControl>

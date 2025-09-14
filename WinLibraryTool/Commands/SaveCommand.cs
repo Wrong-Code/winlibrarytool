@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
-using WinLibraryTool.ViewModel;
-using WinLibraryTool.UserControls;
-using System.Windows.Controls;
-using System.Windows;
-using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using WinLibraryTool.ViewModel;
 
 namespace WinLibraryTool.Commands
 {
@@ -26,8 +19,8 @@ namespace WinLibraryTool.Commands
 
 		public void Execute(object parameter)
 		{
-			CommonSaveFileDialog fd = new CommonSaveFileDialog("Select where to save the library set:");
-			fd.Filters.Add(new CommonFileDialogFilter("WinLibrary Sets", "*.winLibraries"));
+			CommonSaveFileDialog fd = new CommonSaveFileDialog("Select where to save the library set");
+			fd.Filters.Add(new CommonFileDialogFilter("Windows Library Sets", "*.winLibraries"));
 			if (fd.ShowDialog() == CommonFileDialogResult.OK)
 			{
 				// ensure file extension is included.
@@ -43,11 +36,15 @@ namespace WinLibraryTool.Commands
 				}
 				catch (System.Exception ex)
 				{
-					WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions();
-					options.DialogType = WpfDialog.DialogType.Error;
-					WpfDialog dialog = new WpfDialog("Win Library Tool",
-						String.Format("An error occurred trying to save libraries to:\n\n{0}\n\nError:{1}", filePath, ex.Message),
-						options);
+					WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions
+					{
+						DialogType = WpfDialog.DialogType.Error
+					};
+					WpfDialog dialog = new WpfDialog(
+						Helpers.AssemblyProperties.AssemblyTitle,
+						String.Format("An error occurred trying to save libraries to:\n\n{0}\n\nError: {1}", filePath, ex.Message),
+						options
+					);
 				}
 			}
 		}

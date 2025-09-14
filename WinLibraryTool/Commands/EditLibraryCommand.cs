@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using WinLibraryTool.ViewModel;
 using WinLibraryTool.UserControls;
-using System.Windows.Controls;
-using System.Windows;
 
 namespace WinLibraryTool.Commands
 {
@@ -24,13 +20,18 @@ namespace WinLibraryTool.Commands
 		public void Execute(object parameter)
 		{
 			LibraryPropertiesControl userControl = new LibraryPropertiesControl(_viewModel.CurrentLibrary);
-			WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions();
-			options.DialogType = WpfDialog.DialogType.Information;
-			options.PossibleResponses = new WpfDialog.UserResponses(new string[] { "Close" }, 0);
-			options.CustomContent = userControl;
-			options.TitleBarIcon = ((Window)parameter).Icon;
-
-			WpfDialog dialog = new WpfDialog("Edit library", "You can add local and network folders to this library.", options);
+			WpfDialog.WpfDialogOptions options = new WpfDialog.WpfDialogOptions
+			{
+				DialogType = WpfDialog.DialogType.Information,
+				PossibleResponses = new WpfDialog.UserResponses(new string[] { "Close" }, 0),
+				CustomContent = userControl,
+				TitleBarIcon = ((Window) parameter).Icon
+			};
+			WpfDialog dialog = new WpfDialog(
+				String.Format("{0}  |  Edit library", Helpers.AssemblyProperties.AssemblyTitle),
+				"You can add local and network folders to this library.",
+				options
+			);
 			dialog.Owner = (Window)parameter;
 			dialog.ShowDialog();
 		}
