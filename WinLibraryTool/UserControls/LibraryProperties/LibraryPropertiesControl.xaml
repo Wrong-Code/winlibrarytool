@@ -126,7 +126,7 @@
               Height="16"
               Margin="0,0,3,0"
               VerticalAlignment="Center"
-              Source="{StaticResource Icon.Check}"
+              Source="{DynamicResource Icon.Check}"
               Visibility="{Binding Path=IsSaveLocation, Converter={converters:BoolToVisibility}}"
             />
             <Image
@@ -134,7 +134,7 @@
               Height="16"
               Margin="3,0,0,0"
               VerticalAlignment="Center"
-              Source="{StaticResource Icon.Folder}"
+              Source="{DynamicResource Icon.Folder}"
             />
             <TextBlock
               Margin="6,0,10,0" 
