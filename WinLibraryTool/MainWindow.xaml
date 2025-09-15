@@ -58,7 +58,7 @@
             Width="16"
             Height="16"
             VerticalAlignment="Center"
-            Source="{StaticResource Icon.Sync}"
+            Source="{DynamicResource Icon.Sync}"
           />
         </Button>
         <Button
@@ -72,7 +72,7 @@
             Width="16"
             Height="16"
             VerticalAlignment="Center"
-            Source="{StaticResource Icon.Open}"
+            Source="{DynamicResource Icon.Open}"
           />
         </Button>
         <Button
@@ -87,7 +87,7 @@
             Width="16"
             Height="16"
             VerticalAlignment="Center"
-            Source="{StaticResource Icon.Save}"
+            Source="{DynamicResource Icon.Save}"
           />
         </Button>
         <Button
@@ -101,7 +101,7 @@
             Width="16"
             Height="16"
             VerticalAlignment="Center"
-            Source="{StaticResource Icon.Add}"
+            Source="{DynamicResource Icon.Add}"
           />
         </Button>
         <Button
@@ -116,7 +116,7 @@
             Width="16"
             Height="16"
             VerticalAlignment="Center"
-            Source="{StaticResource Icon.Delete}"
+            Source="{DynamicResource Icon.Delete}"
           />
         </Button>
         <Button
@@ -131,7 +131,7 @@
             Width="16"
             Height="16"
             VerticalAlignment="Center"
-            Source="{StaticResource Icon.Edit}"
+            Source="{DynamicResource Icon.Edit}"
           />
         </Button>
       </StackPanel>
@@ -154,7 +154,7 @@
             Width="16"
             Height="16"
             VerticalAlignment="Center"
-            Source="{StaticResource Icon.Help}"
+            Source="{DynamicResource Icon.Help}"
           />
         </Button>
         <Button

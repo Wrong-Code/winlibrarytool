@@ -161,7 +161,7 @@
           Width="16"
           Height="16"
           VerticalAlignment="Center"
-          Source="{StaticResource Icon.Add}"
+          Source="{DynamicResource Icon.Add}"
         />
       </Button>
       <Button
@@ -173,7 +173,7 @@
           Width="16"
           Height="16"
           VerticalAlignment="Center"
-          Source="{StaticResource Icon.Delete}"
+          Source="{DynamicResource Icon.Delete}"
         />
       </Button>
       <Button
@@ -185,7 +185,7 @@
           Width="16"
           Height="16"
           VerticalAlignment="Center"
-          Source="{StaticResource Icon.Select}"
+          Source="{DynamicResource Icon.Select}"
         />
       </Button>
     </StackPanel>
