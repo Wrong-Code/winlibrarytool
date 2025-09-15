@@ -36,7 +36,7 @@ Below are examples of the revamped interface in both dark and light themes, show
 #### 🌙 Edit Library – Dark Theme
 ![Edit Library – Dark Theme](docs/screenshots/library-edit-dark.png)
 
-#### ☀️ Edit Window – Light Theme
+#### ☀️ Edit Library – Light Theme
 ![Edit Library – Light Theme](docs/screenshots/library-edit-light.png)
 
 > The new UI adapts seamlessly to system theme settings, offering a consistent experience whether you're working in daylight or after hours.
