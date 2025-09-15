@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
-using WinLibraryTool.ViewModel;
 using WinLibraryTool.UserControls;
-using System.Windows.Controls;
-using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace WinLibraryTool.Commands

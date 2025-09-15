@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Zorn Software")]
 [assembly: AssemblyProduct("Win Library Tool")]
-[assembly: AssemblyCopyright("Copyright © Zorn Software 2014 | UI modernization © Wrong-Code 2025")]
+[assembly: AssemblyCopyright("© Zorn Software 2014 | UI Modernization © 2025 Wrong-Code")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

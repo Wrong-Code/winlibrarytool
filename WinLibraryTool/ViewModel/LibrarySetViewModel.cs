@@ -1,15 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.WindowsAPICodePack.Shell;
+using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using BusinessLib.DataModel;
 using BusinessLib.DataAccess;
 using BusinessLib.DataOperations;
-using System.Windows;
-using Microsoft.WindowsAPICodePack.Shell;
 
 namespace WinLibraryTool.ViewModel
 {

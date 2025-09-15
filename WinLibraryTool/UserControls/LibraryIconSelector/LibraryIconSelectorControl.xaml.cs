@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using WinLibraryTool.Helpers.CodeHelpers.IconHelper;
 using WinLibraryTool.ViewModel;
-using static WinLibraryTool.WpfDialog;
 
 namespace WinLibraryTool.UserControls
 {

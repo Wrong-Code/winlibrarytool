@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Shell;
+using System;
 using System.Collections.Generic;
-//using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using Microsoft.WindowsAPICodePack.Shell;
 using BusinessLib.DataModel;
 
 namespace WinLibraryTool.ViewModel

@@ -1,11 +1,9 @@
-﻿using Dark.Net;
-using Dark.Net.Wpf;
-using System;
-using System.Diagnostics;
-using System.Drawing;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using Dark.Net;
+using Dark.Net.Wpf;
 
 namespace WinLibraryTool
 {

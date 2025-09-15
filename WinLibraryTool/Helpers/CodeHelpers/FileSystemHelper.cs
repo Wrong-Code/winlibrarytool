@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace WinLibraryTool.Helpers
+﻿namespace WinLibraryTool.Helpers
 {
 	class FileSystemHelper
 	{

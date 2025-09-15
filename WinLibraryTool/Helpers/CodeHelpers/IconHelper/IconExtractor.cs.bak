@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.IO;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
-using System.Runtime.InteropServices;
+using WinLibraryTool.Helpers.CodeHelpers;
 
 namespace WinLibraryTool.Helpers.CodeHelpers.IconHelper
 {
@@ -256,8 +257,7 @@ namespace WinLibraryTool.Helpers.CodeHelpers.IconHelper
 		{
 			//Find the resource in the module.
 			IntPtr hResInfo = IntPtr.Zero;
-			try
-			{
+			try {
 				hResInfo = Win32.FindResource(hModule, resourceName.Value, resourceType);
 			}
 			finally { resourceName.Free(); }

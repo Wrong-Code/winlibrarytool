@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Windows.Input;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using WinLibraryTool.ViewModel;
 
 namespace WinLibraryTool.Commands

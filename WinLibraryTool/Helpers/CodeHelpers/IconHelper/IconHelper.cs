@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Shell;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
-using Microsoft.WindowsAPICodePack.Shell;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using System.Windows;
 
 namespace WinLibraryTool.Helpers.CodeHelpers.IconHelper
 {

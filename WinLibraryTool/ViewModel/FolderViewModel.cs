@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-
-namespace WinLibraryTool.ViewModel
+﻿namespace WinLibraryTool.ViewModel
 {
 	public class FolderViewModel : TreeViewItemViewModel
 	{

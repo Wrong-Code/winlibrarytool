@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
+
 using BYTE = System.Byte;
 using WORD = System.Int16;
 using DWORD = System.Int32;

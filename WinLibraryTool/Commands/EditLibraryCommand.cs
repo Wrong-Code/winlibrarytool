@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using WinLibraryTool.ViewModel;
 using WinLibraryTool.UserControls;
+using WinLibraryTool.ViewModel;
 
 namespace WinLibraryTool.Commands
 {

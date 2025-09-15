@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
-using Microsoft.WindowsAPICodePack.Shell;
+﻿using Microsoft.WindowsAPICodePack.Shell;
+using System;
 using WinLibraryTool.Helpers.CodeHelpers.IconHelper;
-using System.Windows.Media;
-using System.Windows.Interop;
-using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace WinLibraryTool.Converters
 {
