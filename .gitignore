@@ -1,12 +1,37 @@
 # Build output
 bin/
 obj/
-publish/
+*.exe
+*.dll
+*.pdb
+*.config
 
-# Visual Studio folder
+# VS-specific
 .vs/
+*.user
+*.suo
+*.cache
+*.log
 
-# User-specific filesbin
+# ClickOnce output
+publish/
+*.application
+*.manifest
+*.deploy
+
+# Inno Setup output
+Installer/
+*.iss~
+
+# NuGet
+packages/
+*.nupkg
+project.lock.json
+
+# Sensitive files
+*.pfx
+
+# Others
 *.bak
 *.build-res
 *.cache
@@ -14,4 +39,5 @@ publish/
 *.suo
 *.user
 _ReSharper*
-/WinLibraryTool/WrongCode.pfx
+InstallerFiles/*.ico
+InstallerFiles/*.exe
