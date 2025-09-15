@@ -22,3 +22,21 @@ This fork introduces several enhancements and modernizations:
 - 📂 **Automatic Library Loading**: Existing Windows libraries are now detected and loaded automatically at startup.
 - 🧹 **Code Improvements**: Minor refactoring and bug fixes (with the usual possibility of new bugs).
 - 🧪 **Compatibility Notes**: Fully tested on Windows 11 24H2. Windows 7 remains supported, but the legacy Glass Panel effect has been removed due to incompatibility with newer UI styles.
+
+### UI Snapshots
+
+Below are examples of the revamped interface in both dark and light themes, showcasing the updated design and improved usability.
+
+#### 🌙 Main Window – Dark Theme
+![Main Window – Dark Theme](docs/screenshots/main-dark.png)
+
+#### ☀️ Main Window – Light Theme
+![Main Window – Light Theme](docs/screenshots/main-light.png)
+
+#### 🌙 Edit Library – Dark Theme
+![Edit Library – Dark Theme](docs/screenshots/library-edit-dark.png)
+
+#### ☀️ Edit Window – Light Theme
+![Edit Library – Light Theme](docs/screenshots/library-edit-light.png)
+
+> The new UI adapts seamlessly to system theme settings, offering a consistent experience whether you're working in daylight or after hours.

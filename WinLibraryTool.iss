@@ -13,7 +13,6 @@ ArchitecturesInstallIn64BitMode=x64compatible
 
 [Files]
 Source: "WinLibraryTool\bin\Release\WinLibraryTool.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "WinLibraryTool\bin\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "WinLibraryTool\bin\Release\*.config"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
