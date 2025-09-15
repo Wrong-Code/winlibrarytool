@@ -1,15 +1,17 @@
 # Build output
 bin/
 obj/
+publish/
 
 # Visual Studio folder
 .vs/
 
 # User-specific filesbin
-obj
-*.pdb
+*.bak
+*.build-res
 *.cache
+*.pdb
 *.suo
 *.user
-*.build-res
 _ReSharper*
+/WinLibraryTool/WrongCode.pfx
